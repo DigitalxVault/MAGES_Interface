@@ -9,7 +9,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Dice
 
-- [ ] **DICE-01**: User can tap to roll 2× D6 dice
+- [ ] **DICE-01**: User can tap to roll 2x D6 dice
 - [ ] **DICE-02**: Dice results display clearly with individual values and sum total
 - [ ] **DICE-03**: Roll animation provides visual feedback on roll
 - [ ] **DICE-04**: Roll history shows last 5 rolls for dispute resolution
@@ -95,7 +95,7 @@ Explicitly excluded. Documented to prevent scope creep.
 | Cloud sync/database | localStorage sufficient for single-user config |
 | Multiple simultaneous music tracks | Complexity explosion, mixing issues |
 | Playlist management | Single looping track is sufficient |
-| RPG dice (D4, D8, D12, D20) | Project scope is 2×D6 for standard board games |
+| RPG dice (D4, D8, D12, D20) | Project scope is 2xD6 for standard board games |
 | Complex dice expressions (3d6+2) | TTRPG feature, not board game feature |
 | Score tracking | Different games have different scoring — use paper |
 | Game rules database | Massive scope creep — users know their games |
@@ -112,41 +112,41 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DICE-01 | — | Pending |
-| DICE-02 | — | Pending |
-| DICE-03 | — | Pending |
-| DICE-04 | — | Pending |
-| DICE-05 | — | Pending |
-| TIMER-01 | — | Pending |
-| TIMER-02 | — | Pending |
-| TIMER-03 | — | Pending |
-| TIMER-04 | — | Pending |
-| TIMER-05 | — | Pending |
-| TIMER-06 | — | Pending |
-| TIMER-07 | — | Pending |
-| WATCH-01 | — | Pending |
-| WATCH-02 | — | Pending |
-| BGMUSIC-01 | — | Pending |
-| BGMUSIC-02 | — | Pending |
-| BGMUSIC-03 | — | Pending |
-| BGMUSIC-04 | — | Pending |
-| BGMUSIC-05 | — | Pending |
-| EFFECTS-01 | — | Pending |
-| EFFECTS-02 | — | Pending |
-| EFFECTS-03 | — | Pending |
-| EFFECTS-04 | — | Pending |
-| EFFECTS-05 | — | Pending |
-| EFFECTS-06 | — | Pending |
-| UI-01 | — | Pending |
-| UI-02 | — | Pending |
-| UI-03 | — | Pending |
-| UI-04 | — | Pending |
+| DICE-01 | Phase 5 | Pending |
+| DICE-02 | Phase 5 | Pending |
+| DICE-03 | Phase 5 | Pending |
+| DICE-04 | Phase 5 | Pending |
+| DICE-05 | Phase 5 | Pending |
+| TIMER-01 | Phase 4 | Pending |
+| TIMER-02 | Phase 4 | Pending |
+| TIMER-03 | Phase 4 | Pending |
+| TIMER-04 | Phase 4 | Pending |
+| TIMER-05 | Phase 4 | Pending |
+| TIMER-06 | Phase 4 | Pending |
+| TIMER-07 | Phase 4 | Pending |
+| WATCH-01 | Phase 4 | Pending |
+| WATCH-02 | Phase 4 | Pending |
+| BGMUSIC-01 | Phase 3 | Pending |
+| BGMUSIC-02 | Phase 3 | Pending |
+| BGMUSIC-03 | Phase 3 | Pending |
+| BGMUSIC-04 | Phase 3 | Pending |
+| BGMUSIC-05 | Phase 3 | Pending |
+| EFFECTS-01 | Phase 2 | Pending |
+| EFFECTS-02 | Phase 2 | Pending |
+| EFFECTS-03 | Phase 2 | Pending |
+| EFFECTS-04 | Phase 2 | Pending |
+| EFFECTS-05 | Phase 2 | Pending |
+| EFFECTS-06 | Phase 2 | Pending |
+| UI-01 | Phase 1 | Pending |
+| UI-02 | Phase 1 | Pending |
+| UI-03 | Phase 1 | Pending |
+| UI-04 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 29 total
-- Mapped to phases: 0
-- Unmapped: 29 ⚠️
+- Mapped to phases: 29
+- Unmapped: 0
 
 ---
 *Requirements defined: 2025-01-21*
-*Last updated: 2025-01-21 after initial definition*
+*Last updated: 2025-01-21 after roadmap creation*
