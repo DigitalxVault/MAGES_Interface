@@ -1,1 +1,45 @@
 @import "tailwindcss";
+
+@theme {
+  /* Neutral Colors */
+  --color-bg-deep: #1C1C1E;
+  --color-panel-base: #2B2F36;
+  --color-panel-tint: #2F3A45;
+  --color-well-inner: #23272E;
+  --color-metal-mid: #3A4450;
+  --color-metal-light: #90A8A6;
+  --color-metal-highlight: #F1E8D9;
+  --color-border-dark: #14161A;
+  --color-text-primary: #E6E8EC;
+  --color-text-secondary: #B7BEC8;
+  --color-text-muted: #7C8794;
+
+  /* Accent Colors */
+  --color-warning-amber: #F0B040;
+  --color-warning-stripe: #E6C74A;
+  --color-danger-red: #F04020;
+  --color-success-green: #20A850;
+  --color-info-cyan: #2AA7A0;
+  --color-radar-green: #2BCB78;
+  --color-purple-neon: #C46BFF;
+
+  /* Layout Tokens */
+  --radius-panel: 14px;
+  --radius-button: 6px;
+
+  /* Font Families */
+  --font-label: var(--font-bebas), 'Bebas Neue', 'Oswald', 'Rajdhani', system-ui, sans-serif;
+  --font-button: var(--font-oswald), 'Impact', 'Anton', 'Teko', system-ui, sans-serif;
+  --font-body: var(--font-rajdhani), 'Roboto Condensed', 'Inter Tight', system-ui, sans-serif;
+  --font-system: var(--font-inter), system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border-dark;
+  }
+
+  body {
+    @apply font-body;
+  }
+}
