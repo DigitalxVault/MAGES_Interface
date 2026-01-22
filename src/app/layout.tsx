@@ -6,6 +6,16 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'LoFi Immersive Interface',
   description: 'Board Game Interactive Dashboard',
+  openGraph: {
+    title: 'LoFi Immersive Interface',
+    description: 'Board Game Interactive Dashboard',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'LoFi Immersive Interface',
+    description: 'Board Game Interactive Dashboard',
+  },
 };
 
 export const viewport: Viewport = {
