@@ -3,7 +3,6 @@
 import { GlassPanel, GlassWell } from '@/components/ui/GlassPanel';
 import { GlassButton } from '@/components/ui/GlassButton';
 import { useAppStore } from '@/stores/appStore';
-import { useSound } from 'use-sound';
 import { useCallback, useEffect, useRef } from 'react';
 
 // Available background tracks - populated from public/sounds/background/
@@ -51,38 +50,83 @@ function MusicPlayer({
   const progressRef = useRef(progress);
   const progressUpdateRef = useRef<NodeJS.Timeout | null>(null);
   const durationInSeconds = useRef(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     progressRef.current = progress;
   }, [progress]);
 
-  const soundPath = `/sounds/background/${encodeURIComponent(track)}`;
+  // Create and manage audio element directly for full control
+  useEffect(() => {
+    const soundPath = `/sounds/background/${encodeURIComponent(track)}`;
+    const audio = new Audio(soundPath);
+    audioRef.current = audio;
 
-  const [play, { pause, stop, duration: soundDuration }] = useSound(soundPath, {
-    loop: loop,
-    volume: volume,
-    html5: true,
-    onplay: () => onPlayingChange(true),
-    onpause: () => onPlayingChange(false),
-    onstop: () => onPlayingChange(false),
-    onend: () => {
+    // Set initial volume
+    audio.volume = volume;
+
+    // Get duration when metadata loads
+    audio.addEventListener('loadedmetadata', () => {
+      if (audio.duration) {
+        durationInSeconds.current = audio.duration;
+        onDurationChange(audio.duration);
+      }
+    });
+
+    // Handle track ending
+    audio.addEventListener('ended', () => {
       if (!loop) {
         onPlayingChange(false);
         onProgressChange(0);
+      } else {
+        // For loop, restart the track
+        audio.currentTime = 0;
+        audio.play();
       }
-    },
-  });
+    });
 
+    // Handle play/pause state changes
+    audio.addEventListener('play', () => onPlayingChange(true));
+    audio.addEventListener('pause', () => {
+      // Only mark as not playing if we didn't just end the track
+      if (audio.currentTime > 0 && audio.currentTime < audio.duration) {
+        onPlayingChange(false);
+      }
+    });
+
+    return () => {
+      audio.pause();
+      audio.src = '';
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [track, loop]);
+
+  // Handle play/pause based on isPlaying state
   useEffect(() => {
-    if (soundDuration) {
-      const durationSec = soundDuration / 1000;
-      durationInSeconds.current = durationSec;
-      onDurationChange(durationSec);
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.play().catch(() => {
+        // Auto-play blocked or other error
+        onPlayingChange(false);
+      });
+    } else {
+      audio.pause();
     }
-  }, [soundDuration, onDurationChange]);
+  }, [isPlaying, onPlayingChange]);
 
+  // Handle volume changes
   useEffect(() => {
-    if (!isPlaying || !durationInSeconds.current) {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
+  // Progress tracking interval
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !isPlaying) {
       if (progressUpdateRef.current) {
         clearInterval(progressUpdateRef.current);
         progressUpdateRef.current = null;
@@ -91,12 +135,11 @@ function MusicPlayer({
     }
 
     progressUpdateRef.current = setInterval(() => {
-      const increment = 0.1 / durationInSeconds.current;
-      const newProgress = (progressRef.current + increment) >= 1
-        ? 0
-        : progressRef.current + increment;
-      progressRef.current = newProgress;
-      onProgressChange(newProgress);
+      if (audio.duration) {
+        const currentProgress = audio.currentTime / audio.duration;
+        progressRef.current = currentProgress;
+        onProgressChange(currentProgress);
+      }
     }, 100);
 
     return () => {
@@ -106,29 +149,38 @@ function MusicPlayer({
     };
   }, [isPlaying, onProgressChange]);
 
-  useEffect(() => {
-    return () => {
-      stop();
-    };
-  }, [stop]);
-
   const handlePlayPause = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isPlaying) {
-      pause();
+      audio.pause();
     } else {
-      play();
+      audio.play();
     }
-  }, [isPlaying, play, pause]);
+  }, [isPlaying]);
 
   const handleStop = useCallback(() => {
-    stop();
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.pause();
+    audio.currentTime = 0;
     onProgressChange(0);
-  }, [stop, onProgressChange]);
+  }, [onProgressChange]);
 
   const handleSeek = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     const newProgress = parseFloat(e.target.value);
     progressRef.current = newProgress;
     onProgressChange(newProgress);
+
+    // Seek the audio
+    if (audio.duration) {
+      audio.currentTime = newProgress * audio.duration;
+    }
   }, [onProgressChange]);
 
   // Use duration from props (already in seconds)
