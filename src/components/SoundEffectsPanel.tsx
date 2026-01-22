@@ -24,22 +24,27 @@ function SoundButton({ button, volume }: SoundButtonProps) {
     ? `/sounds/effects/${encodeURIComponent(button.soundFile)}`
     : SILENT_AUDIO;
 
-  const [play] = useSound(soundPath, {
+  const [play, { stop }] = useSound(soundPath, {
     volume: hasSound ? volume : 0,
     html5: true,
     onend: () => setIsPlaying(false),
     onplay: () => setIsPlaying(true),
   });
 
-  const handlePlay = useCallback(() => {
+  // Toggle play/stop behavior
+  const handleClick = useCallback(() => {
     if (!hasSound) return;
-    setIsPlaying(true);
-    play();
-  }, [hasSound, play]);
+    if (isPlaying) {
+      stop();
+      setIsPlaying(false);
+    } else {
+      play();
+    }
+  }, [hasSound, isPlaying, play, stop]);
 
   return (
     <button
-      onClick={handlePlay}
+      onClick={handleClick}
       disabled={!hasSound}
       className={`
         min-h-[72px] rounded-2xl font-medium
@@ -47,9 +52,11 @@ function SoundButton({ button, volume }: SoundButtonProps) {
         relative overflow-hidden
         ${!hasSound
           ? 'bg-[rgba(255,255,255,0.3)] text-text-muted cursor-not-allowed opacity-60 border-[rgba(138,138,154,0.3)]'
-          : 'bg-[rgba(255,255,255,0.6)] backdrop-blur-sm hover:bg-[rgba(255,255,255,0.8)] active:scale-[0.98] border-[rgba(59,201,219,0.4)] hover:border-[rgba(59,201,219,0.6)]'
+          : isPlaying
+            ? 'bg-[rgba(56,217,169,0.2)] backdrop-blur-sm hover:bg-[rgba(56,217,169,0.25)] active:scale-[0.98] border-accent-teal'
+            : 'bg-[rgba(255,255,255,0.6)] backdrop-blur-sm hover:bg-[rgba(255,255,255,0.8)] active:scale-[0.98] border-[rgba(59,201,219,0.4)] hover:border-[rgba(59,201,219,0.6)]'
         }
-        ${isPlaying ? 'ring-2 ring-accent-teal shadow-[0_0_20px_rgba(56,217,169,0.3)] border-accent-teal' : ''}
+        ${isPlaying ? 'ring-2 ring-accent-teal shadow-[0_0_20px_rgba(56,217,169,0.3)]' : ''}
         shadow-[0_2px_8px_rgba(0,0,0,0.08)]
         border-2
         disabled:shadow-none disabled:active:scale-100
