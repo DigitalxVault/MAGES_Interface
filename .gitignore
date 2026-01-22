@@ -6,6 +6,9 @@ node_modules/
 out/
 dist/
 
+# Generated files (auto-generated at build time)
+src/generated/
+
 # Environment
 .env
 .env.local

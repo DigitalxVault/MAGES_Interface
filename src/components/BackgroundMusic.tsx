@@ -4,11 +4,10 @@ import { GlassPanel, GlassWell } from '@/components/ui/GlassPanel';
 import { GlassButton } from '@/components/ui/GlassButton';
 import { useAppStore } from '@/stores/appStore';
 import { useCallback, useEffect, useRef } from 'react';
+import { audioManifest } from '@/generated/audio-manifest';
 
-// Available background tracks - populated from public/sounds/background/
-const AVAILABLE_TRACKS = [
-  'Scary BG Music.mp3',
-];
+// Available background tracks - auto-generated from public/sounds/background/
+const AVAILABLE_TRACKS = audioManifest.background;
 
 // Helper to format filename for display
 function formatTrackName(filename: string): string {

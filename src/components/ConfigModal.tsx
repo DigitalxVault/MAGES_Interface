@@ -5,14 +5,10 @@ import { GlassButton } from '@/components/ui/GlassButton';
 import { useAppStore } from '@/stores/appStore';
 import { type SoundEffectButton } from '@/stores/appStore';
 import { useCallback, useMemo } from 'react';
+import { audioManifest } from '@/generated/audio-manifest';
 
-// Available sound files - populated from public/sounds/effects/
-// Display shows filename without extension for easy identification
-const AVAILABLE_SOUNDS = [
-  'alien growl.mp3',
-  'Alien Same Zone.mp3',
-  'Roll Dice.mp3',
-];
+// Available sound files - auto-generated from public/sounds/effects/
+const AVAILABLE_SOUNDS = audioManifest.effects;
 
 // Helper to format filename for display (removes .mp3 extension)
 function formatSoundName(filename: string): string {
