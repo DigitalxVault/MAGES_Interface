@@ -1,6 +1,6 @@
 # Project Research Summary
 
-**Project:** RT Lofi Immersive Interface
+**Project:** LoFi Immersive Interface
 **Domain:** Audio-heavy board game control panel (tablet web app)
 **Researched:** 2026-01-21
 **Confidence:** HIGH

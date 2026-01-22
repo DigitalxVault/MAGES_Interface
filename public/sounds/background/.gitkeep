@@ -1,0 +1,19 @@
+# Background Music Folder
+
+Place your background music files in this folder.
+
+Supported formats: MP3, OGG, WAV
+
+Recommended format: MP3 at 192-256kbps VBR for quality/size balance
+
+For seamless looping, ensure your audio files:
+- Have consistent volume at start and end points
+- End at a natural loop point
+- Are trimmed of silence at beginning/end
+
+Example tracks:
+- ambient-loop.mp3
+- battle-theme.mp3
+- mystery.mp3
+- tavern.mp3
+- dungeon.mp3

@@ -1,6 +1,6 @@
 # Architecture Research: Audio Soundboard + Timer App
 
-**Project:** RT Lofi Immersive Interface
+**Project:** LoFi Immersive Interface
 **Researched:** 2026-01-21
 **Confidence:** HIGH (verified with MDN, library docs, community patterns)
 
@@ -154,7 +154,7 @@ interface SoundButtonConfig {
 persist(
   (set, get) => ({ /* store */ }),
   {
-    name: 'rt-lofi-config',
+    name: 'rt-LoFi-config',
     partialize: (state) => ({
       musicVolume: state.musicVolume,
       effectsVolume: state.effectsVolume,
@@ -414,7 +414,7 @@ App Load
     ▼
 Zustand persist middleware
     │
-    ├── Read localStorage('rt-lofi-config')
+    ├── Read localStorage('rt-LoFi-config')
     │
     ▼
 Hydrate store with:

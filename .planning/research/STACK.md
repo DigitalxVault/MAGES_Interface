@@ -1,6 +1,6 @@
 # Stack Research: Audio Soundboard + Game Timer
 
-**Project:** RT Lofi Immersive Interface
+**Project:** LoFi Immersive Interface
 **Researched:** 2026-01-21
 **Research Mode:** Stack Dimension (Ecosystem)
 
@@ -107,7 +107,7 @@ const useAppStore = create(
       // ... actions
     }),
     {
-      name: 'rt-lofi-storage',
+      name: 'rt-LoFi-storage',
       partialize: (state) => ({
         // Only persist config, not runtime state
         musicVolume: state.musicVolume,
@@ -283,7 +283,7 @@ useEffect(() => {
 
 ```bash
 # Create Next.js project
-npx create-next-app@latest rt-lofi-interface --typescript --tailwind --eslint --app --src-dir
+npx create-next-app@latest rt-LoFi-interface --typescript --tailwind --eslint --app --src-dir
 
 # Core dependencies
 npm install use-sound zustand

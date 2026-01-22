@@ -1,0 +1,19 @@
+# Sound Effects Folder
+
+Place your sound effect files in this folder.
+
+Supported formats: MP3, OGG, WAV
+
+Recommended format: MP3 at 128-192kbps for compatibility
+
+Example files:
+- door-knock.mp3
+- footsteps.mp3
+- tension.mp3
+- success.mp3
+- fail.mp3
+- bell.mp3
+- chime.mp3
+- whoosh.mp3
+- click.mp3
+- notification.mp3

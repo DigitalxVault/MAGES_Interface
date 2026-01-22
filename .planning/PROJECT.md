@@ -1,4 +1,4 @@
-# RT Lofi Immersive Interface
+# LoFi Immersive Interface
 
 ## What This Is
 

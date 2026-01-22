@@ -14,17 +14,17 @@ interface RivetButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variantStyles: Record<ButtonVariant, string> = {
   primary: [
     'bg-metal-mid hover:bg-metal-light',
-    'active:shadow-[inset_0_3px_6px_rgba(0,0,0,0.4)]',
+    'active:scale-[0.96] active:shadow-[inset_0_3px_6px_rgba(0,0,0,0.4)]',
     'shadow-[0_2px_4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(241,232,217,0.15)]',
   ].join(' '),
   secondary: [
     'bg-panel-tint hover:bg-metal-mid',
-    'active:shadow-[inset_0_3px_6px_rgba(0,0,0,0.4)]',
+    'active:scale-[0.96] active:shadow-[inset_0_3px_6px_rgba(0,0,0,0.4)]',
     'shadow-[0_2px_4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(241,232,217,0.15)]',
   ].join(' '),
   danger: [
     'bg-danger-red hover:bg-[#D03818]',
-    'active:shadow-[inset_0_3px_6px_rgba(0,0,0,0.5)]',
+    'active:scale-[0.96] active:shadow-[inset_0_3px_6px_rgba(0,0,0,0.5)]',
     'shadow-[0_2px_4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(241,232,217,0.15)]',
   ].join(' '),
 };
@@ -46,7 +46,8 @@ const RivetButton = forwardRef<HTMLButtonElement, RivetButtonProps>(
         className={cn(
           'rounded-button font-button uppercase tracking-wider',
           'text-text-primary transition-all duration-150',
-          'disabled:opacity-50 disabled:cursor-not-allowed',
+          'disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100',
+          'will-change-transform',
           '[text-shadow:0_1px_0_rgba(255,255,255,0.12),0_-1px_0_rgba(0,0,0,0.55)]',
           variantStyles[variant],
           sizeStyles[size],

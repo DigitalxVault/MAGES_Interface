@@ -1,4 +1,4 @@
-# Requirements: RT Lofi Immersive Interface
+# Requirements: LoFi Immersive Interface
 
 **Defined:** 2025-01-21
 **Core Value:** Enable game hosts to control atmosphere and timing during board game sessions with a single, visually striking interface.
