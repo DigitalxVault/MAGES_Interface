@@ -100,15 +100,20 @@ function MusicPlayer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track, loop]);
 
+  // Keep a ref to the current volume for use in callbacks
+  const volumeRef = useRef(volume);
+  useEffect(() => {
+    volumeRef.current = volume;
+  }, [volume]);
+
   // Handle play/pause based on isPlaying state
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // Always ensure volume is set before playing
-    audio.volume = volume;
-
     if (isPlaying) {
+      // Set volume right before playing using ref to get current value
+      audio.volume = Math.max(0, Math.min(1, volumeRef.current));
       audio.play().catch(() => {
         // Auto-play blocked or other error
         onPlayingChange(false);
@@ -116,14 +121,16 @@ function MusicPlayer({
     } else {
       audio.pause();
     }
-  }, [isPlaying, volume, onPlayingChange]);
+  }, [isPlaying, onPlayingChange]);
 
-  // Handle volume changes - ensure volume is clamped and applied
+  // Handle volume changes while playing - ensure volume is applied immediately
+  // This runs whenever volume changes, regardless of play state
   useEffect(() => {
-    if (audioRef.current) {
+    const audio = audioRef.current;
+    if (audio) {
       // Clamp volume between 0 and 1 for safety
       const clampedVolume = Math.max(0, Math.min(1, volume));
-      audioRef.current.volume = clampedVolume;
+      audio.volume = clampedVolume;
     }
   }, [volume]);
 
@@ -171,7 +178,8 @@ function MusicPlayer({
     audio.pause();
     audio.currentTime = 0;
     onProgressChange(0);
-  }, [onProgressChange]);
+    onPlayingChange(false);
+  }, [onProgressChange, onPlayingChange]);
 
   const handleSeek = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const audio = audioRef.current;

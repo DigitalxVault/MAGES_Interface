@@ -5,7 +5,7 @@ import { GlassButton } from '@/components/ui/GlassButton';
 import { ConfigModal } from '@/components/ConfigModal';
 import { useAppStore, type SoundEffectButton } from '@/stores/appStore';
 import { useSound } from 'use-sound';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 interface SoundButtonProps {
   button: SoundEffectButton;
@@ -19,6 +19,12 @@ const SILENT_AUDIO = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4
 function SoundButton({ button, volume }: SoundButtonProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const hasSound = button.soundFile && button.soundFile.length > 0;
+  const volumeRef = useRef(volume);
+
+  // Keep volume ref updated
+  useEffect(() => {
+    volumeRef.current = volume;
+  }, [volume]);
 
   const soundPath = hasSound
     ? `/sounds/effects/${encodeURIComponent(button.soundFile)}`
@@ -28,7 +34,13 @@ function SoundButton({ button, volume }: SoundButtonProps) {
     volume: hasSound ? volume : 0,
     html5: true,
     onend: () => setIsPlaying(false),
-    onplay: () => setIsPlaying(true),
+    onplay: () => {
+      setIsPlaying(true);
+      // Ensure volume is set when sound starts playing
+      if (sound) {
+        sound.volume(volumeRef.current);
+      }
+    },
   });
 
   // Update volume when it changes (for already-initialized sounds)
@@ -45,9 +57,13 @@ function SoundButton({ button, volume }: SoundButtonProps) {
       stop();
       setIsPlaying(false);
     } else {
+      // Set volume right before playing to ensure it's current
+      if (sound) {
+        sound.volume(volumeRef.current);
+      }
       play();
     }
-  }, [hasSound, isPlaying, play, stop]);
+  }, [hasSound, isPlaying, play, stop, sound]);
 
   return (
     <button
